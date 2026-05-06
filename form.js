@@ -1,50 +1,58 @@
 let currentData = null;
 
-/**
- * Called automatically by commonContent(true) is used * Called automatically by common.js
- */
 function fillForm(data) {
-  currentData = data;
+  siteTitleInput.value = data.site?.title || "";  currentData = data;
+  siteTaglineInput.value = data.site?.tagline || "";
+  heroHeadingInput.value = data.hero?.heading || "";
+  heroSubtextInput.value = data.hero?.subtext || "";
+  aboutContentInput.value = data.about?.content || "";
 
-  document.getElementById("siteTitleInput").value =
-    data.site?.title || "";
+  heroImageSrc.value = data.images.hero.src;
+  heroImageOpacity.value = data.images.hero.opacity;
+  heroEnabled.checked = data.images.hero.enabled;
 
-  document.getElementById("siteTaglineInput").value =
-    data.site?.tagline || "";
+  profileSize.value = data.images.profile.size;
+  profileEnabled.checked = data.images.profile.enabled;
 
-  document.getElementById("heroHeadingInput").value =
-    data.hero?.heading || "";
+  const editor = document.getElementById("experienceEditor");
+  editor.innerHTML = "";
 
-  document.getElementById("heroSubtextInput").value =
-    data.hero?.subtext || "";
-
-  document.getElementById("aboutContentInput").value =
-    data.about?.content || "";
+  data.experience.forEach((exp, i) => {
+    const block = document.createElement("div");
+    block.innerHTML = `
+      <input data-i="${i}" data-k="role" value="${exp.role}" />
+      <input data-i="${i}" data-k="org" value="${exp.org}" />
+      <input data-i="${i}" data-k="duration" value="${exp.duration}" />
+      <textarea data-i="${i}" data-k="desc">${exp.desc}</textarea>
+      <hr />
+    `;
+    editor.appendChild(block);
+  });
 }
 
-/**
- * Save updated data back to KV
- */
+function addExperience() {
+  currentData.experience.push({
+    role: "", org: "", duration: "", desc: ""
+  });
+  fillForm(currentData);
+}
+
 async function saveContent() {
-  if (!currentData) {
-    alert("Data not loaded yet");
-    return;
-  }
+  document.querySelectorAll("[data-k]").forEach(el => {
+    currentData.experience[el.dataset.i][el.dataset.k] = el.value;
+  });
 
-  currentData.site.title =
-    document.getElementById("siteTitleInput").value;
+  currentData.site.title = siteTitleInput.value;
+  currentData.site.tagline = siteTaglineInput.value;
+  currentData.hero.heading = heroHeadingInput.value;
+  currentData.hero.subtext = heroSubtextInput.value;
+  currentData.about.content = aboutContentInput.value;
 
-  currentData.site.tagline =
-    document.getElementById("siteTaglineInput").value;
-
-  currentData.hero.heading =
-    document.getElementById("heroHeadingInput").value;
-
-  currentData.hero.subtext =
-    document.getElementById("heroSubtextInput").value;
-
-  currentData.about.content =
-    document.getElementById("aboutContentInput").value;
+  currentData.images.hero.src = heroImageSrc.value;
+  currentData.images.hero.opacity = parseFloat(heroImageOpacity.value);
+  currentData.images.hero.enabled = heroEnabled.checked;
+  currentData.images.profile.size = parseInt(profileSize.value, 10);
+  currentData.images.profile.enabled = profileEnabled.checked;
 
   await fetch("/api/content", {
     method: "POST",
@@ -52,13 +60,6 @@ async function saveContent() {
     body: JSON.stringify(currentData)
   });
 
-  alert("✅ Website updated successfully");
+  alert("✅ Saved successfully");
 }
 
-const res = await fetch("/api/content", {...});
-
-if (!res.ok) {
-  const err = await res.text();
-  alert("Save failed: " + err);
-  return;
-}
