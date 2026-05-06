@@ -7,25 +7,26 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+	<!-- Header -->
+	<div class="logo" id="siteTitle"></div>
+	<nav id="nav"></nav>
 
-<header id="header">
-  <div class="logo" id="siteTitle"></div>
-  <nav id="nav"></nav>
-</header>
+	<!-- Hero -->
+	<section class="hero">
+	  <h1 id="heroHeading"></h1>
+	  <p id="heroSubtext"></p>
+	</section>
 
-<section class="hero">
-  <h1 id="heroHeading"></h1>
-  <p id="heroSubtext"></p>
-</section>
+	<!-- About -->
+	<section id="about">
+	  <img id="aboutImg" />
+	  <div id="aboutText"></div>
+	</section>
 
-<section id="about">
-  <img id="aboutImg" />
-  <div id="aboutText"></div>
-</section>
 
-<script src="common.js"></script>
-<script>
-  loadContent(false);
-</script>
+	<script src="common.js"></script>
+	<script>
+	  loadContent();
+	</script>
 </body>
 </html>
