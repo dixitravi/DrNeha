@@ -1,11 +1,18 @@
-export async function onRequest({ request, env }) {
+export async function onRequest({ env }) {
   try {
+    if (!env.ACADEMIC_KV) {
+      return new Response(
+        JSON.stringify({ error: "ACADEMIC_KV binding missing" }),
+        { status: 500, headers: { "Content-Type": "application/json" } }
+      );
+    }
+
     const data = await env.ACADEMIC_KV.get("content");
 
     if (!data) {
       return new Response(
         JSON.stringify({ error: "KV key 'content' not found" }),
-        { headers: { "Content-Type": "application/json" }, status: 404 }
+        { status: 404, headers: { "Content-Type": "application/json" } }
       );
     }
 
@@ -14,8 +21,8 @@ export async function onRequest({ request, env }) {
     });
   } catch (err) {
     return new Response(
-      JSON.stringify({ error: err.message }),
-      { headers: { "Content-Type": "application/json" }, status: 500 }
+      JSON.stringify({ error: err.message, stack: err.stack }),
+      { status: 500, headers: { "Content-Type": "application/json" } }
     );
   }
 }
