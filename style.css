@@ -48,20 +48,22 @@ nav a:hover {
 
 /* HERO */
 .hero {
-  padding: 96px 48px;
-  background: var(--bg-light);
+  padding: 120px 48px;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
   text-align: center;
+  color: white;
 }
 
 .hero h1 {
-  font-size: 42px;
-  font-weight: 700;
-  margin-bottom: 16px;
+  font-size: 44px;
+  max-width: 900px;
+  margin: 0 auto 16px;
 }
 
 .hero p {
   font-size: 18px;
-  color: var(--text-muted);
   max-width: 720px;
   margin: 0 auto;
 }
@@ -78,7 +80,10 @@ nav a:hover {
 
 #about img {
   width: 100%;
-  border-radius: 8px;
+  max-width: 280px;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 12px;
 }
 
 #aboutText {
@@ -88,4 +93,19 @@ nav a:hover {
 /* SECTIONS */
 section {
   scroll-margin-top: 100px;
+}
+
+@media (max-width: 768px) {
+  #about {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  #about img {
+    margin: 0 auto 24px;
+  }
+
+  .hero {
+    padding: 96px 24px;
+  }
 }
