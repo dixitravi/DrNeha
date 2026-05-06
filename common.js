@@ -95,7 +95,10 @@ if (timeline && Array.isArray(data.experience)) {
   });
 }
 
-// TEMP: enable admin link on localhost or when query param present
-if (location.search.includes("admin=true")) {
-  document.getElementById("adminLink").style.display = "block";
+// Show admin link only when explicitly requested
+if (window.location.search.includes("admin=true")) {
+  const adminLink = document.getElementById("adminLink");
+  if (adminLink) {
+    adminLink.style.display = "block";
+  }
 }
