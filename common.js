@@ -1,46 +1,80 @@
 async function loadContent(isAdmin = false) {
-  const res = await fetch("/api/content");
-  const data = await res.json();
+  try {
+    const res = await fetch("/api/content");
+    const data = await res.json();
 
-  // Theme basics
-  document.documentElement.style.setProperty("--primary-color", data.site.primaryColor);
-  document.body.style.fontFamily = data.site.fontFamily;
+    // Theme
+    if (data.site && data.site.primaryColor) {
+      document.documentElement.style.setProperty(
+        "--primary-color",
+        data.site.primaryColor
+      );
+    }
+    if (data.site && data.site.fontFamily) {
+      document.body.style.fontFamily = data.site.fontFamily;
+    }
 
-  // Optional background pattern
-  if (data.background?.pattern) {
-    document.body.style.backgroundImage = `url(${data.background.pattern})`;
-    document.body.style.backgroundRepeat = "repeat";
-    document.body.style.backgroundSize = "800px auto";
-  }
+    // Optional background pattern
+    if (data.background && data.background.pattern) {
+      document.body.style.backgroundImage =
+        "url(" + data.background.pattern + ")";
+      document.body.style.backgroundRepeat = "repeat";
+      document.body.style.backgroundSize = "800px auto";
+    }
 
-  // Header
-  document.getElementById("siteTitle").innerText = data.site.title;
+    // Header
+    const siteTitleEl = document.getElementById("siteTitle");
+    if (siteTitleEl && data.site) {
+      siteTitleEl.innerText = data.site.title || "";
+    }
 
-  // Navigation
-  const nav = document.getElementById("nav");
-  nav.innerHTML = "";
-  data.navigation.forEach(item => {
-    const a = document.createElement("a");
-    a.href = item.anchor;
-    a.textContent = item.label;
-    nav.appendChild(a);
-  });
+    // Navigation
+    const nav = document.getElementById("nav");
+    if (nav && Array.isArray(data.navigation)) {
+      nav.innerHTML = "";
+      data.navigation.forEach(item => {
+        const a = document.createElement("a");
+        a.href = item.anchor;
+        a.textContent = item.label;
+        nav.appendChild(a);
+      });
+    }
 
-  // Hero
-  const heroSection = document.getElementById("hero");
-  heroSection.style.backgroundImage = `linear-gradient(
-      rgba(0,0,0,0.45),
-      rgba(0,0,0,0.45)
-    ), url(${data.hero.image})`;
+    // Hero
+    const heroSection = document.getElementById("hero");
+    if (heroSection && data.hero && data.hero.image) {
+      heroSection.style.backgroundImage =
+        "linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)), url(" +
+        data.hero.image +
+        ")";
+    }
 
-  document.getElementById("heroHeading").innerText = data.hero.heading;
-  document.getElementById("heroSubtext").innerText = data.hero.subtext;
+    const heroHeadingEl = document.getElementById("heroHeading");
+    if (heroHeadingEl && data.hero) {
+      heroHeadingEl.innerText = data.hero.heading || "";
+    }
 
-  // About
-  document.getElementById("aboutImg").src = data.about.image;
-  document.getElementById("aboutText").innerText = data.about.content;
+    const heroSubtextEl = document.getElementById("heroSubtext");
+    if (heroSubtextEl && data.hero) {
+      heroSubtextEl.innerText = data.hero.subtext || "";
+    }
 
-  if (isAdmin && window.fillForm) {
-    fillForm(data);
+    // About
+    const aboutImg = document.getElementById("aboutImg");
+    if (aboutImg && data.about && data.about.image) {
+      aboutImg.src = data.about.image;
+    }
+
+    const aboutText = document.getElementById("aboutText");
+    if (aboutText && data.about) {
+      aboutText.innerText = data.about.content || "";
+    }
+
+    // Admin
+    if (isAdmin && window.fillForm) {
+      fillForm(data);
+    }
+  } catch (err) {
+    console.error("Error loading site content:", err);
   }
 }
