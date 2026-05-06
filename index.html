@@ -1,73 +1,78 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8" />
-	<title>Dr. Neha Tewari – Change Management & Organizational Effectiveness</title>
+<html lang><html lang="en">
+  <meta charset="UTF-8" />
+  <title>Dr. Neha Tewari – Change Management & Organizational Effectiveness</title>
 
-	<meta name="description"
-	  content="Dr. Neha Tewari is a PhD-qualified Change Management and Organizational Effectiveness leader with experience in higher education, leadership enablement, and transformation initiatives." />
+  <meta name="description"
+    content="Dr. Neha Tewari is a PhD-qualified Change Management and Organizational Effectiveness leader with experience in higher education, leadership enablement, and transformation initiatives." />
 
-	<meta name="author" content="Dr. Neha Tewari" />
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	
-	<script type="application/ld+json">
-	{
-	  "@context": "https://schema.org",
-	  "@type": "Person",
-	  "name": "Dr. Neha Tewari",
-	  "jobTitle": "Change Management & Organizational Effectiveness Leader",
-	  "alumniOf": {
-		"@type": "CollegeOrUniversity",
-		"name": "Cranfield University"
-	  },
-	  "knowsAbout": [
-		"Change Management",
-		"Leadership Enablement",
-		"Organizational Development"
-	  ]
-	}
-	</script>
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-	
-	<link rel="stylesheet" href="style.css" />
+  <meta name="author" content="Dr. Neha Tewari" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Schema.org -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Dr. Neha Tewari",
+    "jobTitle": "Change Management & Organizational Effectiveness Leader",
+    "alumniOf": {
+      "@type": "CollegeOrUniversity",
+      "name": "Cranfield University"
+    },
+    "knowsAbout": [
+      "Change Management",
+      "Leadership Enablement",
+      "Organizational Development"
+    ]
+  }
+  </script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
-	<!-- Header -->
-	
-	<div class="logo">
-	  <div id="siteTitle"></div>
-	  <div id="siteTagline" class="tagline"></div>
-	</div>
 
-	<nav id="nav"></nav>
-	
-	<a href="/form.html" id="adminLink" style="display:none">Admin</a>
+  <!-- Header -->
+  <header>
+    <div class="logo">
+      <div id="siteTitle"></div>
+      <div id="siteTagline" class="tagline"></div>
+    </div>
+    <nav id="nav"></nav>
+  </header>
 
+  <!-- Admin link (hidden by default) -->
+  <a href="/form.html" id="adminLink" style="display:none" class="admin-link">
+    Admin
+  </a>
 
-	<!-- Hero -->
+  <!-- Hero -->
+  <section class="hero" id="hero">
+    <h1 id="heroHeading"></h1>
+    <p id="heroSubtext"></p>
+  </section>
 
-	<section class="hero" id="hero">
-	  <h1 id="heroHeading"></h1>
-	  <p id="heroSubtext"></p>
-	</section>
+  <!-- About -->
+  <section id="about">
+    <img id="aboutImg" alt="Professional portrait" />
+    <div id="aboutText"></div>
+  </section>
 
+  <!-- Experience -->
+  <section id="experience">
+    <h2>Professional Experience</h2>
+    <div id="experienceTimeline"></div>
+  </section>
 
-	<!-- About -->
-	<section id="about">
-	  <img id="aboutImg" alt="Professional portrait" />
-	  <div id="aboutText"></div>
-	</section>
-	
-	<section id="experience">
-	  <h2>Professional Experience</h2>
-	  <div id="experienceTimeline"></div>
-	</section>
-
-	<script src="common.js"></script>
-	<script>
-	  loadContent();
-	</script>
+  <script src="common.js"></script>
+  <script>
+    loadContent();
+  </script>
 </body>
 </html>
