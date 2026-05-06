@@ -1,34 +1,64 @@
-<!DOCTYPE html><!DOCTYPE<html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Site Editor – Dr. Neha Tewari</title>
+  <title>Admin Editor – Dr. Neha Tewari</title>
   <link rel="stylesheet" href="form.css" />
 </head>
+
 <body>
 
-	<h2>Website Content Editor</h2>
+  <h2>Website Content Editor</h2>
 
-	<label>Site Title</label>
-	<input id="siteTitleInput" />
+  <label>Site Title</label>
+  <input id="siteTitleInput" />
 
-	<label>Tagline</label>
-	<input id="siteTaglineInput" />
+  <label>Tagline</label>
+  <input id="siteTaglineInput" />
 
-	<label>Hero Heading</label>
-	<textarea id="heroHeadingInput"></textarea>
+  <label>Hero Heading</label>
+  <textarea id="heroHeadingInput"></textarea>
 
-	<label>Hero Subtext</label>
-	<textarea id="heroSubtextInput"></textarea>
+  <label>Hero Subtext</label>
+  <textarea id="heroSubtextInput"></textarea>
 
-	<label>About Content</label>
-	<textarea id="aboutContentInput"></textarea>
+  <label>About Content</label>
+  <textarea id="aboutContentInput"></textarea>
 
-	<button onclick="saveContent()">Save Changes</button>
+  <h3>Professional Experience</h3>
+  <div id="experienceEditor"></div>
+  <button type="button" onclick="addExperience()">Add Experience</button>
 
-	<script src="form.js"></script>
-	<script src="common.js"></script>
-	<script>
-	  loadContent(true);
-	</script>
+  <h3>Images</h3>
+
+  <label>Hero Image Path</label>
+  <input id="heroImageSrc" />
+
+  <label>Hero Overlay Opacity (0–1)</label>
+  <input type="number" step="0.05" id="heroImageOpacity" />
+
+  <label>
+    <input type="checkbox" id="heroEnabled" />
+    Show Hero Image
+  </label>
+
+  <label>Profile Image Size (px)</label>
+  <input type="number" id="profileSize" />
+
+  <label>
+    <input type="checkbox" id="profileEnabled" />
+    Show Profile Image
+  </label>
+
+  <br /><br />
+  <button type="button" onclick="saveContent()">Save Changes</button>
+
+  <!-- Scripts at the END of BODY ✅ -->
+  <script src="common.js"></script>
+  <script src="form.js"></script>
+  <script>
+    loadContent(true);
+  </script>
+
 </body>
 </html>
