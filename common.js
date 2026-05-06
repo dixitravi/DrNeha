@@ -1,9 +1,8 @@
 async function loadContent(isAdmin = false) {
   try {
-    
-	const res = await fetch("/content.json");
-	const data = await res.json();
-
+    const res = await fetch("/content.json");
+    if (!res.ok) throw new Error("Failed to load content.json");
+    const data = await res.json();
 
     /* Theme */
     if (data.site?.primaryColor) {
@@ -37,29 +36,33 @@ async function loadContent(isAdmin = false) {
 
     /* Hero */
     const hero = document.getElementById("hero");
-    if (data.images?.hero?.enabled && hero) {
-      hero.style.backgroundImage =
-        `linear-gradient(
+    if (hero && data.images?.hero?.enabled) {
+      hero.style.backgroundImage = `
+        linear-gradient(
           rgba(0,0,0,${data.images.hero.opacity}),
           rgba(0,0,0,${data.images.hero.opacity})
-        ), url(${data.images.hero.src})`;
+        ),
+        url(${data.images.hero.src})
+      `;
       hero.style.height = data.images.hero.height;
     }
 
-    document.getElementById("heroHeading").textContent = data.hero?.heading || "";
-    document.getElementById("heroSubtext").textContent = data.hero?.subtext || "";
+    const heroHeading = document.getElementById("heroHeading");
+    const heroSubtext = document.getElementById("heroSubtext");
+    if (heroHeading) heroHeading.textContent = data.hero?.heading || "";
+    if (heroSubtext) heroSubtext.textContent = data.hero?.subtext || "";
 
     /* About */
     const img = document.getElementById("aboutImg");
-    if (data.images?.profile?.enabled && img) {
+    if (img && data.images?.profile?.enabled) {
       img.src = data.images.profile.src;
       img.style.width = data.images.profile.size + "px";
       img.style.borderRadius =
         data.images.profile.shape === "round" ? "50%" : "12px";
     }
 
-    document.getElementById("aboutText").textContent =
-      data.about?.content || "";
+    const aboutText = document.getElementById("aboutText");
+    if (aboutText) aboutText.textContent = data.about?.content || "";
 
     /* Experience */
     const timeline = document.getElementById("experienceTimeline");
@@ -95,4 +98,4 @@ document.addEventListener("DOMContentLoaded", () => {
     if (admin) admin.style.display = "inline-block";
   }
 });
-
+``
