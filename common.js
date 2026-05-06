@@ -18,21 +18,21 @@ async function loadContent(isAdmin = false) {
     const aboutText = document.getElementById("aboutText");
     if (aboutText) aboutText.textContent = data.about?.content || "";
 
-    const timeline = document.getElementById("experienceTimeline");
-    if (timeline && Array.isArray(data.experience)) {
-      timeline.innerHTML = "";
-      data.experience.forEach(item => {
-        const div = document.createElement("div");
-        div.className = "timeline-item";
-        div.innerHTML = `
-          <h3>${item.role}</h3>
-          <strong>${item.org}</strong>
-          <div>${item.duration}</div>
-          <p>${item.desc}</p>
-        `;
-        timeline.appendChild(div);
-      });
-    }
+   const timeline = document.getElementById("experienceTimeline");
+if (timeline && Array.isArray(data.experience)) {
+  timeline.innerHTML = "";
+  data.experience.forEach(item => {
+    const div = document.createElement("div");
+    div.className = "timeline-item";
+    div.innerHTML = `
+      <h3>${item.role}</h3>
+      <strong>${item.org}</strong>
+      <div>${item.duration}</div>
+      <p>${item.desc}</p>
+    `;
+    timeline.appendChild(div);
+  });
+}
 
   } catch (e) {
     console.error("Content load failed:", e);
