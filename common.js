@@ -80,7 +80,6 @@ async function loadContent(isAdmin = false) {
 }
 
 const timeline = document.getElementById("experienceTimeline");
-
 if (timeline && Array.isArray(data.experience)) {
   timeline.innerHTML = "";
   data.experience.forEach(item => {
@@ -94,4 +93,9 @@ if (timeline && Array.isArray(data.experience)) {
     `;
     timeline.appendChild(div);
   });
+}
+
+// TEMP: enable admin link on localhost or when query param present
+if (location.search.includes("admin=true")) {
+  document.getElementById("adminLink").style.display = "block";
 }
