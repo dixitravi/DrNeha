@@ -96,9 +96,11 @@ if (timeline && Array.isArray(data.experience)) {
 }
 
 // Show admin link only when explicitly requested
-if (window.location.search.includes("admin=true")) {
-  const adminLink = document.getElementById("adminLink");
-  if (adminLink) {
-    adminLink.style.display = "block";
+document.addEventListener("DOMContentLoaded", () => {
+  if (window.location.search.includes("admin=true")) {
+    const adminLink = document.getElementById("adminLink");
+    if (adminLink) {
+      adminLink.style.display = "inline-block";
+    }
   }
-}
+});
