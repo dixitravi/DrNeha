@@ -2,9 +2,16 @@ async function loadContent(isAdmin = false) {
   const res = await fetch("/api/content");
   const data = await res.json();
 
-  // Apply theme
+  // Theme basics
   document.documentElement.style.setProperty("--primary-color", data.site.primaryColor);
   document.body.style.fontFamily = data.site.fontFamily;
+
+  // Optional background pattern
+  if (data.background?.pattern) {
+    document.body.style.backgroundImage = `url(${data.background.pattern})`;
+    document.body.style.backgroundRepeat = "repeat";
+    document.body.style.backgroundSize = "800px auto";
+  }
 
   // Header
   document.getElementById("siteTitle").innerText = data.site.title;
@@ -20,6 +27,12 @@ async function loadContent(isAdmin = false) {
   });
 
   // Hero
+  const heroSection = document.getElementById("hero");
+  heroSection.style.backgroundImage = `linear-gradient(
+      rgba(0,0,0,0.45),
+      rgba(0,0,0,0.45)
+    ), url(${data.hero.image})`;
+
   document.getElementById("heroHeading").innerText = data.hero.heading;
   document.getElementById("heroSubtext").innerText = data.hero.subtext;
 
