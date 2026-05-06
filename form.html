@@ -1,24 +1,34 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html><!DOCTYPE<html lang="en">
 <head>
+  <meta charset="UTF-8" />
+  <title>Site Editor – Dr. Neha Tewari</title>
   <link rel="stylesheet" href="form.css" />
 </head>
 <body>
-	<h2>Website Editor</h2>
 
-	<label>Name</label>
+	<h2>Website Content Editor</h2>
+
+	<label>Site Title</label>
 	<input id="siteTitleInput" />
 
-	<label>Primary Color</label>
-	<input type="color" id="colorInput" />
+	<label>Tagline</label>
+	<input id="siteTaglineInput" />
 
 	<label>Hero Heading</label>
 	<textarea id="heroHeadingInput"></textarea>
 
-	<button onclick="save()">Save Changes</button>
+	<label>Hero Subtext</label>
+	<textarea id="heroSubtextInput"></textarea>
 
-	<script src="common.js"></script>
+	<label>About Content</label>
+	<textarea id="aboutContentInput"></textarea>
+
+	<button onclick="saveContent()">Save Changes</button>
+
 	<script src="form.js"></script>
-	<script>loadContent(true);</script>
+	<script src="common.js"></script>
+	<script>
+	  loadContent(true);
+	</script>
 </body>
 </html>
