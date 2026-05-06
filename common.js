@@ -78,3 +78,20 @@ async function loadContent(isAdmin = false) {
     console.error("Error loading site content:", err);
   }
 }
+
+const timeline = document.getElementById("experienceTimeline");
+
+if (timeline && Array.isArray(data.experience)) {
+  timeline.innerHTML = "";
+  data.experience.forEach(item => {
+    const div = document.createElement("div");
+    div.className = "timeline-item";
+    div.innerHTML = `
+      <h3>${item.role}</h3>
+      <strong>${item.org}</strong>
+      <span>${item.duration}</span>
+      <p>${item.desc}</p>
+    `;
+    timeline.appendChild(div);
+  });
+}
