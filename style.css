@@ -109,3 +109,23 @@ section {
     padding: 96px 24px;
   }
 }
+
+#experience {: 900px;
+  margin: 80px auto;
+  padding: 0 24px;
+}
+
+.timeline-item {
+  border-left: 3px solid var(--primary-color);
+  padding-left: 24px;
+  margin-bottom: 32px;
+}
+
+.timeline-item h3 {
+  margin: 0;
+}
+
+.timeline-item span {
+  font-size: 14px;
+  color: #6b7280;
+}
