@@ -3,9 +3,7 @@ async function loadContent(isAdmin = false) {
     const res = await fetch("/api/content");
     const data = await res.json();
 
-    /* =====================
-       Theme
-    ====================== */
+    /* Theme */
     if (data.site && data.site.primaryColor) {
       document.documentElement.style.setProperty(
         "--primary-color",
@@ -16,17 +14,13 @@ async function loadContent(isAdmin = false) {
       document.body.style.fontFamily = data.site.fontFamily;
     }
 
-    /* =====================
-       Header
-    ====================== */
+    /* Header */
     const siteTitleEl = document.getElementById("siteTitle");
     if (siteTitleEl && data.site) {
       siteTitleEl.textContent = data.site.title || "";
     }
 
-    /* =====================
-       Navigation
-    ====================== */
+    /* Navigation */
     const nav = document.getElementById("nav");
     if (nav && Array.isArray(data.navigation)) {
       nav.innerHTML = "";
@@ -38,9 +32,7 @@ async function loadContent(isAdmin = false) {
       });
     }
 
-    /* =====================
-       Hero
-    ====================== */
+    /* Hero */
     const heroSection = document.getElementById("hero");
     if (heroSection && data.hero && data.hero.image) {
       heroSection.style.backgroundImage =
@@ -59,9 +51,7 @@ async function loadContent(isAdmin = false) {
       heroSubtextEl.textContent = data.hero.subtext || "";
     }
 
-    /* =====================
-       About
-    ====================== */
+    /* About */
     const aboutImg = document.getElementById("aboutImg");
     if (aboutImg && data.about && data.about.image) {
       aboutImg.src = data.about.image;
@@ -72,9 +62,7 @@ async function loadContent(isAdmin = false) {
       aboutText.textContent = data.about.content || "";
     }
 
-    /* =====================
-       Professional Experience ✅ FIXED
-    ====================== */
+    /* Professional Experience ✅ */
     const timeline = document.getElementById("experienceTimeline");
     if (timeline && Array.isArray(data.experience)) {
       timeline.innerHTML = "";
@@ -91,9 +79,7 @@ async function loadContent(isAdmin = false) {
       });
     }
 
-    /* =====================
-       Admin (form.html)
-    ====================== */
+    /* Admin form */
     if (isAdmin && typeof window.fillForm === "function") {
       fillForm(data);
     }
@@ -103,9 +89,7 @@ async function loadContent(isAdmin = false) {
   }
 }
 
-/* =====================
-   Reveal Admin link on demand ✅ FIXED
-====================== */
+/* Reveal Admin link ✅ */
 document.addEventListener("DOMContentLoaded", () => {
   if (window.location.search.includes("admin=true")) {
     const adminLink = document.getElementById("adminLink");
