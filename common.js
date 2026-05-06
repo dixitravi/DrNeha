@@ -37,7 +37,7 @@ div.innerHTML = `
     }
 
   } catch (e) {
-    console.error("❌ Content load failed:", e);
+    console.error("Content load failed:", e);
   }
 }
 
