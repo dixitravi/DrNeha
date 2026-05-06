@@ -54,3 +54,11 @@ async function saveContent() {
 
   alert("✅ Website updated successfully");
 }
+
+const res = await fetch("/api/content", {...});
+
+if (!res.ok) {
+  const err = await res.text();
+  alert("Save failed: " + err);
+  return;
+}
