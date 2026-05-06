@@ -1,18 +1,21 @@
 export async function onRequest({ request, env }) {
-  if (request.method === "GET") {
+  try {
     const data = await env.ACADEMIC_KV.get("content");
-    return new Response(data || "", {
+
+    if (!data) {
+      return new Response(
+        JSON.stringify({ error: "KV key 'content' not found" }),
+        { headers: { "Content-Type": "application/json" }, status: 404 }
+      );
+    }
+
+    return new Response(data, {
       headers: { "Content-Type": "application/json" }
     });
+  } catch (err) {
+    return new Response(
+      JSON.stringify({ error: err.message }),
+      { headers: { "Content-Type": "application/json" }, status: 500 }
+    );
   }
-
-  if (request.method === "POST") {
-    const body = await request.json();
-    await env.ACADEMIC_KV.put("content", JSON.stringify(body));
-    return new Response(JSON.stringify({ success: true }), {
-      headers: { "Content-Type": "application/json" }
-    });
-  }
-
-  return new Response("Method not allowed", { status: 405 });
 }
