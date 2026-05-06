@@ -1,24 +1,24 @@
 async function loadContent(isAdmin = false) {
   try {
-    const res = await fetch("/api/content");
-    const data = await res.json();
+    const res = await fetch("/api await res.json();    const res = await fetch("/api/content");
 
     /* Theme */
-    if (data.site && data.site.primaryColor) {
+    if (data.site?.primaryColor) {
       document.documentElement.style.setProperty(
         "--primary-color",
         data.site.primaryColor
       );
     }
-    if (data.site && data.site.fontFamily) {
+    if (data.site?.fontFamily) {
       document.body.style.fontFamily = data.site.fontFamily;
     }
 
     /* Header */
-    const siteTitleEl = document.getElementById("siteTitle");
-    if (siteTitleEl && data.site) {
-      siteTitleEl.textContent = data.site.title || "";
-    }
+    const siteTitle = document.getElementById("siteTitle");
+    const siteTagline = document.getElementById("siteTagline");
+
+    if (siteTitle) siteTitle.textContent = data.site?.title || "";
+    if (siteTagline) siteTagline.textContent = data.site?.tagline || "";
 
     /* Navigation */
     const nav = document.getElementById("nav");
@@ -33,36 +33,32 @@ async function loadContent(isAdmin = false) {
     }
 
     /* Hero */
-    const heroSection = document.getElementById("hero");
-    if (heroSection && data.hero && data.hero.image) {
-      heroSection.style.backgroundImage =
-        "linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)), url(" +
-        data.hero.image +
-        ")";
+    const hero = document.getElementById("hero");
+    if (data.images?.hero?.enabled && hero) {
+      hero.style.backgroundImage =
+        `linear-gradient(
+          rgba(0,0,0,${data.images.hero.opacity}),
+          rgba(0,0,0,${data.images.hero.opacity})
+        ), url(${data.images.hero.src})`;
+      hero.style.height = data.images.hero.height;
     }
 
-    const heroHeadingEl = document.getElementById("heroHeading");
-    if (heroHeadingEl && data.hero) {
-      heroHeadingEl.textContent = data.hero.heading || "";
-    }
-
-    const heroSubtextEl = document.getElementById("heroSubtext");
-    if (heroSubtextEl && data.hero) {
-      heroSubtextEl.textContent = data.hero.subtext || "";
-    }
+    document.getElementById("heroHeading").textContent = data.hero?.heading || "";
+    document.getElementById("heroSubtext").textContent = data.hero?.subtext || "";
 
     /* About */
-    const aboutImg = document.getElementById("aboutImg");
-    if (aboutImg && data.about && data.about.image) {
-      aboutImg.src = data.about.image;
+    const img = document.getElementById("aboutImg");
+    if (data.images?.profile?.enabled && img) {
+      img.src = data.images.profile.src;
+      img.style.width = data.images.profile.size + "px";
+      img.style.borderRadius =
+        data.images.profile.shape === "round" ? "50%" : "12px";
     }
 
-    const aboutText = document.getElementById("aboutText");
-    if (aboutText && data.about) {
-      aboutText.textContent = data.about.content || "";
-    }
+    document.getElementById("aboutText").textContent =
+      data.about?.content || "";
 
-    /* Professional Experience ✅ */
+    /* Experience */
     const timeline = document.getElementById("experienceTimeline");
     if (timeline && Array.isArray(data.experience)) {
       timeline.innerHTML = "";
@@ -84,17 +80,16 @@ async function loadContent(isAdmin = false) {
       fillForm(data);
     }
 
-  } catch (err) {
-    console.error("Error loading site content:", err);
+  } catch (e) {
+    console.error("Content load failed:", e);
   }
 }
 
-/* Reveal Admin link ✅ */
+/* Reveal Admin link */
 document.addEventListener("DOMContentLoaded", () => {
   if (window.location.search.includes("admin=true")) {
-    const adminLink = document.getElementById("adminLink");
-    if (adminLink) {
-      adminLink.style.display = "inline-block";
-    }
+    const admin = document.getElementById("adminLink");
+    if (admin) admin.style.display = "inline-block";
   }
 });
+
