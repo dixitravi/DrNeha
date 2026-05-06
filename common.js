@@ -1,6 +1,9 @@
 async function loadContent(isAdmin = false) {
   try {
-    const res = await fetch("/api await res.json();    const res = await fetch("/api/content");
+    
+	const res = await fetch("/content.json");
+	const data = await res.json();
+
 
     /* Theme */
     if (data.site?.primaryColor) {
